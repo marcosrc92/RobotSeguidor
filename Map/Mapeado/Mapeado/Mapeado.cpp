@@ -5,7 +5,7 @@
 #include "Mapeado.h"
 
 #define MAX_LOADSTRING 100
-//Comentario de prueba
+
 // Variables globales:
 HINSTANCE hInst;                                // instancia actual
 WCHAR szTitle[MAX_LOADSTRING];                  // Texto de la barra de título
