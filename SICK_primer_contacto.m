@@ -69,5 +69,5 @@ plot(X,Y)
 axis([-8000 8000 0 8000])    
 grid on
 grid minor
-%%
+
 end
