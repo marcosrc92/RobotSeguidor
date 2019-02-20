@@ -41,4 +41,16 @@ void Class_SICK::conectar(LPCWSTR port) {
 	dcbSerialParams.StopBits = ONESTOPBIT;
 	dcbSerialParams.Parity = NOPARITY;
 	
+	// Set COM port timeout settings
+	timeouts.ReadIntervalTimeout = 50;
+	timeouts.ReadTotalTimeoutConstant = 50;
+	timeouts.ReadTotalTimeoutMultiplier = 10;
+	timeouts.WriteTotalTimeoutConstant = 50;
+	timeouts.WriteTotalTimeoutMultiplier = 10;
+	if (SetCommTimeouts(hSerial, &timeouts) == 0)
+	{
+		fprintf(stderr, "Error setting timeouts\n");
+		CloseHandle(hSerial);
+		return;
+	}
 }

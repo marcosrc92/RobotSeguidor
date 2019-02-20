@@ -2,6 +2,10 @@
 //
 
 #include "stdafx.h"
+#include <Windows.h>
+#include <tchar.h>
+#include <stdlib.h>
+#include <string.h>
 #include "Mapeado.h"
 
 #define MAX_LOADSTRING 100
@@ -123,6 +127,17 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	/****************************************************************************/
+	PAINTSTRUCT ps;
+	HDC hdc;
+	TCHAR greeting[] = _T("Hello, Windows desktop!");
+	hdc = BeginPaint(hWnd, &ps);
+	TextOut(hdc,
+		5, 5,
+		greeting, _tcslen(greeting));
+	EndPaint(hWnd, &ps);
+	/****************************************************************************/
+
     switch (message)
     {
     case WM_COMMAND:

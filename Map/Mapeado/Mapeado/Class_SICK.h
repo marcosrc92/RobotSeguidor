@@ -2,7 +2,6 @@
 #include "stdafx.h"
 
 
-
 class Class_SICK
 {
 public:
