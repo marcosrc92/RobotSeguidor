@@ -7,8 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Mapeado.h"
+#include "Class_SICK.h"
 
 #define MAX_LOADSTRING 100
+
 
 // Variables globales:
 HINSTANCE hInst;                                // instancia actual
@@ -127,17 +129,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	/****************************************************************************/
-	PAINTSTRUCT ps;
-	HDC hdc;
-	TCHAR greeting[] = _T("Hello, Windows desktop!");
-	hdc = BeginPaint(hWnd, &ps);
-	TextOut(hdc,
-		5, 5,
-		greeting, _tcslen(greeting));
-	EndPaint(hWnd, &ps);
-	/****************************************************************************/
+	Class_SICK sick;
+	LPCWSTR puerto = TEXT("COM1");
 
+	sick.conectar(puerto);
+	
     switch (message)
     {
     case WM_COMMAND:
@@ -162,6 +158,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: Agregar cualquier código de dibujo que use hDC aquí...
+			TCHAR greeting[] = _T("Hello, Windows desktop!");
+			TextOut(hdc,
+				5, 5,
+				greeting, _tcslen(greeting));
             EndPaint(hWnd, &ps);
         }
         break;
