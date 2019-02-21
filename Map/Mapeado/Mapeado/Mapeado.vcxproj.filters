@@ -41,9 +41,6 @@
     <ClCompile Include="Class_SICK.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Mapeado.rc">

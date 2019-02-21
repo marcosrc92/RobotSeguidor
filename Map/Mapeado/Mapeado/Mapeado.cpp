@@ -2,12 +2,7 @@
 //
 
 #include "stdafx.h"
-#include <Windows.h>
-#include <tchar.h>
-#include <stdlib.h>
-#include <string.h>
 #include "Mapeado.h"
-#include "Class_SICK.h"
 
 #define MAX_LOADSTRING 100
 
@@ -98,6 +93,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 //        En esta función, se guarda el identificador de instancia en una variable común y
 //        se crea y muestra la ventana principal del programa.
+//		  Se inicia la conexion con el objeto SICK a traves del puerto COM1
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
@@ -110,6 +106,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
+
+   /*****************************INICIALIZACION DEL OBJETO***************************/
+   Class_SICK sick;
+   LPCWSTR puerto = TEXT("COM1");
+
+   sick.conectar(puerto);
+   /*********************************************************************************/
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
@@ -129,10 +132,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	Class_SICK sick;
-	LPCWSTR puerto = TEXT("COM1");
-
-	sick.conectar(puerto);
 	
     switch (message)
     {
