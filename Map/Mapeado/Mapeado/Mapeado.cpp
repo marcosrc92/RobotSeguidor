@@ -132,7 +132,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	/********************/
+	
     switch (message)
     {
     case WM_COMMAND:
