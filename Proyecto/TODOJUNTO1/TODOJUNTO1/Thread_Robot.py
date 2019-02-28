@@ -29,4 +29,10 @@ class Thread_Robot (threading.Thread):
                 self.robot.fin_Connexion_Arduino() # arrêt de la connexion à la carte Arduino
                 self.robot.fin_Connexion_Kangaroo() # arrêt de la connexion au module Kangaroo x2             
                             
-                
+    """ method to get the Drive Speed""" 
+    def getSpeedDrive(self):
+         return self.speedDrive
+    
+    """method to get the Turn Speed"""
+    def getSpeedTurn(self):
+        return self.speedTurn     
