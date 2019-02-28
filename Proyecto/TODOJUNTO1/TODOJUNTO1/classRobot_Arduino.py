@@ -103,7 +103,7 @@ class Robot_Arduino:
         self.kangaroo.write(commande.encode('utf-8'))
         temps = abs(180/90)
         time.sleep(temps)
-
+        
     """ méthode pour stopper les moteurs """
     def stop_Moteurs(self):
         self.kangaroo.write('D,powerdown\n'.encode('utf-8')) # arrêt du contôle des voies D et T
