@@ -9,6 +9,7 @@ public:
 	~Class_SICK();
 	
 	void conectar(LPCWSTR);
-	void reset();
+	int reset();
+	void trama();
 };
 
