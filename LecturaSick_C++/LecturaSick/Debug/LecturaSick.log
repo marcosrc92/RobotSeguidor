@@ -1,0 +1,7 @@
+﻿  pch.cpp
+  Class_SICK.cpp
+c:\users\marco\onedrive\documentos\maiind\robotica\robotseguidor\lecturasick_c++\lecturasick\class_sick.cpp(145): warning C4018: '<': no coinciden signed/unsigned
+c:\users\marco\onedrive\documentos\maiind\robotica\robotseguidor\lecturasick_c++\lecturasick\class_sick.cpp(192): warning C4018: '<': no coinciden signed/unsigned
+  LecturaSick.cpp
+  Generando código...
+  LecturaSick.vcxproj -> C:\Users\marco\OneDrive\Documentos\MAIIND\Robotica\RobotSeguidor\LecturaSick_C++\Debug\LecturaSick.exe
