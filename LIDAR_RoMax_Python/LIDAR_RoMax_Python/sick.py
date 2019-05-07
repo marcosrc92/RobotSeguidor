@@ -33,7 +33,7 @@ import serial
 import time
 import sys
 import math
-from CRC16_SICK import *
+from CRC16_SICK import CRC16_SICK
 #import cv2
 import numpy as np
 

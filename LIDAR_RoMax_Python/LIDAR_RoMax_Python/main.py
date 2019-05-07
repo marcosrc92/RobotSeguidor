@@ -1,15 +1,11 @@
 import sys
 import time
 
-import classRobot
-import sick
+from classRobot import Robot
 from sick import SICK
 
 robot=Robot('COM5') #objeto robot
 robot.initialisation_Kangaroo() # inicializacion de robot
-
-thread = Thread_Robot(robot) # creacion del hilo
-thread.start() # lanzamiento del hilo
 
 print ("<<<< initing sick")
 sick = SICK('COM5')
