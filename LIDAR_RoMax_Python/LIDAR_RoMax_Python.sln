@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "LIDAR_RoMax_Python", "LIDAR_RoMax_Python\LIDAR_RoMax_Python.pyproj", "{2727AFFA-DB0F-4972-B925-C2348BAF40F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2727AFFA-DB0F-4972-B925-C2348BAF40F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2727AFFA-DB0F-4972-B925-C2348BAF40F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43B71F71-5520-420F-9B67-65D6C3624904}
+	EndGlobalSection
+EndGlobal
