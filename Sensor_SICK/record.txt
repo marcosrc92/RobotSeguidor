@@ -1,0 +1,9 @@
+Legend: 
+  * - An event occurred.
+  > - A write operation occurred.
+  < - A read operation occurred.
+ 
+1      Recording on 13-Feb-2019 at 11:17:52.447. Binary data in little endian format.
+2      > 1 uint8 values.
+3        Recording off.
+
