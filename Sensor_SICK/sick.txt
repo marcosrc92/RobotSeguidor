@@ -1,0 +1,60 @@
+
+    sick.puerto.ReadAsyncMode = 'continuous';
+    sick.puerto.BytesAvailableFcnCount = 733;
+    sick.puerto.BytesAvailableFcnMode = 'byte';
+
+    sick.puerto.Tag = 'sick';
+    sick.puerto.DataTerminalReady='off';
+
+  sick.puerto.InputBufferSize=733;
+  
+ fopen(sick.puerto);
+    
+    msg={'02' '00' '01' '00' '10' '34' '12'}; % reset
+    
+    msg_on=['02' '80' '17' '00' '90'... 
+    '4C' '4D' '53' '32' '30' '30' '3B' '33' '30' '31' '30' '36' '33' '3B' '56' '30' '32' '2E' '31' '30' '20' '10'...
+    '63' '5E'];% Power-on
+
+    h=hex2dec(msg);
+    fwrite(sick.puerto,h,'uint8','async');
+
+a=[];
+    
+    while (~strcmp(a(:)',msg_on))
+        % Vaciar el puerto 
+        % OJO!!! Los datos se perderan
+        if(sick.puerto.BytesAvailable>0)
+            pause(0.1)
+            disp(['>>> AVISO: Se descartaran ' int2str(sick.puerto.BytesAvailable) ' datos']);
+            ack=fread(sick.puerto, sick.puerto.BytesAvailable,'uint8');
+            a=dec2hex(ack)';
+        end
+    end
+    disp('Sick reseteado')
+
+ msg={'02' '00' '02' '00' '30' '01' '31' '18'};
+    msg_hex=hex2dec(msg);
+    
+    sick.puerto.Timeout=1;
+    fwrite(sick.puerto,msg_hex,'uint8','async');
+
+    while(sick.puerto.BytesAvailable<733)
+        pause(0.01)
+    end
+    
+    
+    [ack1,cnt,ms]=fread(sick.puerto,733,'uint8');
+newData=ack1(7:end-3);
+%     newData=[newData; ack2(1:end-3)];
+    len=length(newData);
+    
+    dis=[];
+    for i=1:2:len
+        dis=[dis newData(i)+newData(i+1)*256];
+    end
+
+    ang=0:pi/361:pi;
+    
+    X=cos(ang).*dis;
+    Y=sin(ang).*dis;
