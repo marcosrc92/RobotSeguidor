@@ -48,12 +48,12 @@ fwrite(s,msg_hex,'uint8','async');
 
   while(s.BytesAvailable<733)
         pause(0.01)
-    end
+  end
 
 [ack1,cnt,ms]=fread(s,733,'uint8');
 newData=ack1(7:end-3); %quita la cabecera
 
-len=length(newData);
+len=length(newData); 
     
 dis=[];
 for i=1:2:len
