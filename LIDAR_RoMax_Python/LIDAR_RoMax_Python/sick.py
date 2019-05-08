@@ -196,7 +196,7 @@ class SICK():
         crc = self.crc_calc.calcSICK(self.hexar2str(msg))
         msg.append(crc[0])
         msg.append(crc[1])
-        msg = [0x02, 0x00, 0x01, 0x00, 0x10, 0x34, 0x12]
+        #msg = [0x02, 0x00, 0x01, 0x00, 0x10, 0x34, 0x12] #esta es la trama de reset (esta sobreescribiendo lo anterior)
         print("mensaje: '%s'", msg)
         print("Saliendo de crear el mensaje")
         self._debug = True
@@ -291,7 +291,7 @@ class SICK():
                 time.sleep(.1)'''
     def reset(self):
         print ("Resetting SICK and initing")
-        self.create_and_send_msg([10])
+        self.create_and_send_msg([0x10])
         print ("Waiting.")
         time.sleep(6)
 
