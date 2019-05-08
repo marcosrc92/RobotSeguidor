@@ -91,9 +91,11 @@ class SICK():
         print("Antes de entrar al reset")
         self.reset() # reset and initilize scanner
         print("Saliendo del reset")
-        self.log_in() # login with password
-        self.set_9k() # set to 98k
-        self.request_scan_mode() # request scanning
+        #self.log_in() # login with password
+        #self.set_9k() # set to 98k
+        '''After a reset, operating mode 25h (output measured value on request only) is the default
+        setting (on delivery) with a data transmission rate of 9,600 Bd.'''
+        #self.request_scan_mode() # request scanning
         self.set_op_mode() # set op-mode to enable scanning, wtf, dont know why
 
     def calc_distances(self):
@@ -105,6 +107,7 @@ class SICK():
             x =  sval * math.cos(float(i)/2.0*3.1415/180)
             y = sval * math.sin(float(i)/2.0*3.1415/180)
             coords = np.append(coords, np.array([[x,y,sval]]), axis=0)
+            print (coords)
         self.cartesian = coords
 
     #def make_image(self):
@@ -209,8 +212,7 @@ class SICK():
     def request_scan_mode(self):
         print ("----------- REQUESTING SCAN MODE:")
         while True:
-            self.create_and_send_msg([0x36, 0x01, 10])
-
+            self.create_and_send_msg([0x36, 0x01, 0x10])
             asw = []
             while self.ser.inWaiting() > 0:
                 asw.append(ord(self.ser.read(1)))
@@ -296,19 +298,17 @@ class SICK():
         time.sleep(6)
 
     def get_frame(self):
+        contador=0
         while True:
             asw = []
             start = False
             while len(asw) < (727 + 5):
-                while self.ser.inWaiting() > 0:
-                    r = ord(self.ser.read(1))
-                    if (r == SICK_STX): # read until start-byte discovered
-                        start = True
-                    if start == True:
-                        asw.append(r)
-                time.sleep(.0001)
+                #while self.ser.inWaiting() > 0:
+                r = ord(self.ser.read(1))  
+                if (r == SICK_STX): # read until start-byte discovered
+                    start = True
+                if start == True:
+                    asw.append(r)
+                time.sleep(.001)
             if self.parse_msg(asw) == 0xb0:
-                return True
-
-
-
+                return (asw)#True
