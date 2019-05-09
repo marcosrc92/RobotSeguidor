@@ -43,7 +43,7 @@ SICK_NAK = 0x15
 SICK_NACK = 0x92
 SICK_STATUS = 0x31
 
-MAX_DIST = 400 # cm !
+MAX_DIST = 4000 # cm !
 
 #################################### GENERAL MESSAGE LAYOUT TO SICK:
 SICK_START = 0x02 # start of transmission
@@ -98,10 +98,10 @@ class SICK():
         #self.request_scan_mode() # request scanning
         self.set_op_mode() # set op-mode to enable scanning, wtf, dont know why
 
-    def calc_distances(self):
+    def calc_distances(self, lectura):
         coords = np.empty((0,3))
         for i in range (0,361):
-            sval = (self.frame[i*2+8]<<8 | self.frame[i*2+7]) & 0x1fff
+            sval = (lectura[i*2+8]<<8 | lectura[i*2+7]) & 0x1fff
             if sval > MAX_DIST: 
                 continue
             x =  sval * math.cos(float(i)/2.0*3.1415/180)
@@ -298,7 +298,6 @@ class SICK():
         time.sleep(6)
 
     def get_frame(self):
-        contador=0
         while True:
             asw = []
             start = False

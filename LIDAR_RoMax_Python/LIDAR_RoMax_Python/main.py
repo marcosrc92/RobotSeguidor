@@ -1,8 +1,10 @@
 import sys
 import time
+import cv2
 
 from classRobot import Robot
 from sick import SICK
+
 '''
 robot=Robot('COM5') #objeto robot
 robot.initialisation_Kangaroo() # inicializacion de robot
@@ -15,6 +17,7 @@ sick = SICK('COM1')
     #robot.vitesse_LigneDroite(0.5,0.25)
 asw=sick.get_frame()
 print(asw)
+#sick.calc_distances(asw)
 
     #time.sleep(0.25)
     
