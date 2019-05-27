@@ -84,8 +84,11 @@ class SICK():
         #self.cartesian = None
         #self.image = None
         
-        
-        
+        print("Antes de entrar al reset")
+        #por que se a¡la salta a veces???
+        self.reset() # reset and initilize scanner
+        print("Saliendo del reset")
+        '''
         print("Valor del estatus: '%s'", self.test_status)
         # I use this as start sequence to ensure everything is set        
         if not self.test_status():
@@ -93,14 +96,15 @@ class SICK():
             self.ser.baudrate = 9600# checks for reply and changes baudrate if nec
             if not self.test_status():
                 raise(Exception("Can not communicate with SICK. Please check connection, port and baudrate"))
-        print("Antes de entrar al reset")
-        self.reset() # reset and initilize scanner
-        print("Saliendo del reset")
+        '''
 
         #self.log_in() # login with password
         #self.set_9k() # set to 98k
+        '''After a reset, operating mode 25h (output measured value on request only) is the default
+        setting (on delivery) with a data transmission rate of 9,600 Bd.'''
         #self.request_scan_mode() # request scanning
         self.set_op_mode() # set op-mode to enable scanning, wtf, dont know why
+        time.sleep(0.1)
 
     def calc_distances(self,lectura):
         coords = np.empty((0,3))
@@ -108,12 +112,14 @@ class SICK():
             sval = (lectura[i*2+8]<<8 | lectura[i*2+7]) & 0x1fff
             #if sval > MAX_DIST: 
                 #continue
+            #print (sval)
             x =  sval * math.cos(float(i)/2.0*3.1415/180)
             y = sval * math.sin(float(i)/2.0*3.1415/180)
             coords = np.append(coords, np.array([[x,y,sval]]), axis=0)
             #print("Para la lectura %i" %i)
             #print ("Coordenada X: %d" %x)
             #print ("Coordenada Y: %d\n" %y)
+            #print (coords)
         # Data for plotting        
         self.cartesian = coords
         fig, ax = plt.subplots()
@@ -306,6 +312,8 @@ class SICK():
     def reset(self):
         print ("Resetting SICK and initing")
         self.create_and_send_msg([0x10])
+        #msg = [0x02, 0x00, 0x01, 0x00, 0x10, 0x34, 0x12]
+        #self.ser.write(self.hexar2str(msg).encode())
         print ("Waiting.")
         time.sleep(6)
 
@@ -314,12 +322,12 @@ class SICK():
             asw = []
             start = False
             while len(asw) < (727 + 5):
-                while self.ser.inWaiting() > 0:
-                    r = ord(self.ser.read(1))  
-                    if (r == SICK_STX): # read until start-byte discovered
-                        start = True
-                    if start == True:
-                        asw.append(r)
+                #while self.ser.inWaiting() > 0:
+                r = ord(self.ser.read(1))  
+                if (r == SICK_STX): # read until start-byte discovered
+                    start = True
+                if start == True:
+                    asw.append(r)
                 time.sleep(.001)
-            if self.parse_msg(asw) == 0xb0:
-                return (asw)#True
+            #if self.parse_msg(asw) == 0xb0:
+            return (asw)#True
