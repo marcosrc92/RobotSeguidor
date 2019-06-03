@@ -82,10 +82,7 @@ class SICK():
         print("4")
         #self.frame = None
         #self.cartesian = None
-        #self.image = None
-        
-        
-        
+        #self.image = None  
         print("Valor del estatus: '%s'", self.test_status)
         # I use this as start sequence to ensure everything is set        
         if not self.test_status():
@@ -102,25 +99,58 @@ class SICK():
         #self.request_scan_mode() # request scanning
         self.set_op_mode() # set op-mode to enable scanning, wtf, dont know why
 
+    '''
     def calc_distances(self,lectura):
-        coords = np.empty((0,3))
+        coords = np.empty((0,4))
+        coords1 = np.empty((0,4))
+        sval=np.empty(361)
+        #relleno el vector de distancias
         for i in range (0,361):
-            sval = (lectura[i*2+8]<<8 | lectura[i*2+7]) & 0x1fff
-            #if sval > MAX_DIST: 
-                #continue
-            x =  sval * math.cos(float(i)/2.0*3.1415/180)
-            y = sval * math.sin(float(i)/2.0*3.1415/180)
-            coords = np.append(coords, np.array([[x,y,sval]]), axis=0)
+            sval[i] = (lectura[i*2+8]<<8 | lectura[i*2+7]) & 0x1fff
+            x =  sval[i] * math.cos(float(i)/2.0*3.1415/180)
+            y = sval[i] * math.sin(float(i)/2.0*3.1415/180)
+            coords = np.append(coords, np.array([[float(i/2.0),x,y,sval[i]]]), axis=0)
+
+        fig, ax = plt.subplots()
+        ax.grid()   
+        #evita que el programa se detenga al mostrar una figura
+        plt.interactive=True
+        ax.plot(coords[:,1], coords[:,2])
+        plt.show()
+
+
+        #filtro la medida
+        for i in range (1,360):
+            if(not(1.2*sval[i-1]>sval[i] and 1.2*sval[i+1]>sval[i] or 1.2*sval[i-1]<sval[i] and 1.2*sval[i+1]<sval[i])):
+                sval[i]=sval[i-1]
+            if(not(1.2*sval[i-1]<sval[i] and 1.2*sval[i+1]<sval[i])):
+                sval[i]=sval[i+1]
+            x =  sval[i] * math.cos(float(i)/2.0*3.1415/180)
+            y = sval[i] * math.sin(float(i)/2.0*3.1415/180)
+            coords1 = np.append(coords1, np.array([[float(i/2.0),x,y,sval[i]]]), axis=0)
             #print("Para la lectura %i" %i)
             #print ("Coordenada X: %d" %x)
             #print ("Coordenada Y: %d\n" %y)
         # Data for plotting        
-        self.cartesian = coords
+        #self.cartesian = coords
         fig, ax = plt.subplots()
-        ax.plot(coords[:,0], coords[:,1])
-        ax.grid()
+        ax.grid()   
+        #evita que el programa se detenga al mostrar una figura
+        plt.interactive=True
+        ax.plot(coords1[:,1], coords1[:,2])
         plt.show()
+        return coords1
+        '''
+    
+    def calc_distances(self,lectura):
+        coords = np.empty((0,3))
+        for i in range (0,361):
+            sval = (lectura[i*2+8]<<8 | lectura[i*2+7]) & 0x1fff
+            x =  sval * math.cos(float(i)/2.0*3.1415/180)
+            y = sval * math.sin(float(i)/2.0*3.1415/180)
+            coords = np.append(coords, np.array([[x,y,sval]]), axis=0)
         return coords
+
 
     #def make_image(self):
     #    img = np.zeros(((MAX_DIST + 50),2*(MAX_DIST + 50),3), np.uint8)
