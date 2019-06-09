@@ -12,6 +12,6 @@ se transmitirá la información relativa al movimiento que debe realizar el robo
 a una velocidad mayor para alcanzar el objetivo. En el caso contrario, si el elemento a seguir se encuentra en una posición cercana, el robot
 se desplazará a una velocidad menor.
 
-Lugar de pruebas:        * Laboratorio de robótica de la Universidad de Oviedo.
-Sensor Laser(LIDAR):     * SICK -LMS200
+Lugar de pruebas:        * Laboratorio de robótica de la Universidad de Oviedo.                       
+Sensor Laser(LIDAR):     * SICK - LMS200                                        
 Robot experimental:      * Movirobotics
