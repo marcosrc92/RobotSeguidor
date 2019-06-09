@@ -15,3 +15,17 @@ se desplazará a una velocidad menor.
 Lugar de pruebas:        * Laboratorio de robótica de la Universidad de Oviedo.                       
 Sensor Laser(LIDAR):     * SICK - LMS200                                        
 Robot experimental:      * Movirobotics
+
+
+El proyecto está dividido en varias carpertas. La carpeta con la información y la programación del roboto y del SICK en python se 
+encuentra en LIDA_RoMax_Python. Dentro se encuentra el proyecto que actualmente funciona correctamente.
+
+El proyecto LecturaSick_C++, contiene los programas para leer la información del SICK en C++. Actualmente no se hace nada con este
+proyecto.
+
+El proyecto RoMax_Joystick_Python, es el proyecto realizado por Pier donde se encuentra el programa del Robot en python, del cual
+se ha partido para la inclusión del SICK.
+
+El proyecto SICK_Python, es el proyecto del SICK-LMS100 en el cual se ha basado la programación para nuestro SICK, ya que es un LMS200
+y los parámetros de las librerías no son los mismos.
+
